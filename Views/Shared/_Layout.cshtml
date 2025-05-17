@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - JwtAuthDemo</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+
+</head>
+
+<style>
+    html, body {
+    font-family: Arial, sans-serif;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, #3674B5, #578FCA, #A1E3F9, #D1F8EF) !important;
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.wrapper {
+    flex: 1;
+    display: flex;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #a49b9b;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 20px;
+    transform: translateX(0);
+    transition: transform 0.3s ease-in-out;
+}
+
+.sidebar .title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+.sidebar a {
+    font-family: Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    transition: background 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #444;
+}
+
+.sidebar .title, .footer, .content {
+    font-family: Arial, sans-serif;
+}
+
+.dropdown {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdown-menu {
+    display: none;
+    flex-direction: column;
+    background-color: #333;
+    padding: 5px;
+    border-radius: 5px;
+    width: 100%;
+    position: relative;
+    margin-top: 5px;
+}
+
+.dropdown-menu a {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.dropdown-menu a:hover {
+    background-color: #555;
+}
+
+.dropdown.active .dropdown-menu {
+    display: flex;
+}
+
+.sidebar .login-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #333;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+    transition: background 0.3s;
+}
+
+.sidebar .login-btn:hover {
+    background-color: darkgreen;
+}
+
+.sidebar .logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #333;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+    transition: background 0.3s;
+}
+
+.sidebar .logout-btn:hover {
+    background-color: darkred;
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+    transition: margin-left 0.3s ease-in-out;
+    width: calc(100% - 250px);
+}
+
+.menu-btn {
+    position: absolute;
+    top: 15px;
+    left: 10px;
+    background: #333;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: none;
+    z-index: 1000;
+}
+
+#siteTitle {
+    margin-left: 50px;
+}
+
+.footer {
+    font-family: Arial, sans-serif;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    background-color: #222;
+}
+
+</style>
+
+<body>
+
+    @{
+        var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+        var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+        bool isAuthPage = currentController == "Account" && (currentAction == "Login" || currentAction == "Register");
+    }
+
+    @if (!isAuthPage)
+    {
+        <!-- Sidebar (Hidden only on Login/Register pages) -->
+        <div class="sidebar" id="sidebar">
+            <div class="title">JwtAuthDemo</div>
+            <a href="/"><i class="fas fa-home"></i>Home</a>
+            <a href="/Home/About"><i class="fas fa-info-circle"></i>About</a>
+            <a href="/Account/Profile"><i class="fas fa-user"></i>Profile</a>
+            
+            <!-- Transaction Dropdown -->
+            <div class="dropdown">
+                <a href="#" class="dropdown-toggle" onclick="toggleDropdown()"><i class="fas fa-exchange-alt"></i>Transaction</a>
+                <div class="dropdown-menu" id="transactionMenu">
+                    <a href="/Transaction/Transaction1"><i class="fas fa-money-bill-wave"></i>Transaction 1</a>
+                    <a href="/Transaction/Transaction2"><i class="fas fa-credit-card"></i>Transaction 2</a>
+                    <a href="/Transaction/Transaction3"><i class="fas fa-wallet"></i>Transaction 3</a>
+                </div>
+            </div>
+
+            <a href="/Home/Privacy"><i class="fas fa-user-secret"></i>Privacy</a>
+
+            <!-- Logout Button -->
+            @if (!string.IsNullOrEmpty(Context.Session.GetString("Username")))
+            {
+                <form method="post" action="/Account/Logout">
+                    <button type="submit" class="logout-btn"><i class="fas fa-sign-out-alt"></i>Logout</button>
+                </form>
+            }
+            else
+            {
+                <a href="/Account/Login" class="login-btn"><i class="fas fa-sign-in-alt"></i>Login</a>
+            }
+        </div>
+
+        <!-- Menu Button (Visible on smaller screens) -->
+        <button class="menu-btn" id="menuBtn" onclick="toggleSidebar()">☰</button>
+    }
+
+    <!-- Main Wrapper -->
+    <div class="wrapper">
+        <div class="content @(isAuthPage ? "" : "with-sidebar")" id="content">
+            @RenderBody()
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            &copy; 2025 - JwtAuthDemo - <a href="/Home/Privacy" class="text-white">Privacy</a>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        function checkWindowSize() {
+            var sidebar = document.getElementById("sidebar");
+            var content = document.getElementById("content");
+            var menuBtn = document.getElementById("menuBtn");
+
+            if (!sidebar) return;
+
+            if (window.innerWidth >= 1200) {
+                sidebar.style.transform = "translateX(0)";
+                content.style.marginLeft = "250px";
+                menuBtn.style.display = "none";
+            } else {
+                sidebar.style.transform = "translateX(-250px)";
+                content.style.marginLeft = "0";
+                menuBtn.style.display = "block";
+            }
+        }
+
+        function toggleSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            var content = document.getElementById("content");
+
+            if (sidebar.style.transform === "translateX(0px)") {
+                sidebar.style.transform = "translateX(-250px)";
+                content.style.marginLeft = "0";
+            } else {
+                sidebar.style.transform = "translateX(0)";
+                content.style.marginLeft = "250px";
+            }
+        }
+
+        function toggleDropdown() {
+            var dropdown = document.querySelector('.dropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        window.onload = checkWindowSize;
+        window.onresize = checkWindowSize;
+    </script>
+
+</body>
+
+</html>

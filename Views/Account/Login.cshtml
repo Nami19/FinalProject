@@ -1,0 +1,76 @@
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h2 class="text-center">Login</h2>
+                    
+                    <!-- Login Form -->
+                    <form id="login-form">
+                        <!-- Username Input -->
+                        <div class="mb-3">
+                            <label class="form-label">Username:</label>
+                            <input type="text" name="username" class="form-control transparent-input" placeholder="Enter username" required />
+                        </div>
+
+                        <!-- Password Input -->
+                        <div class="mb-3">
+                            <label class="form-label">Password:</label>
+                            <input type="password" name="password" class="form-control transparent-input" placeholder="Enter password" required />
+                        </div>
+
+                        <!-- Remember Me Checkbox -->
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" name="rememberMe" class="form-check-input" id="rememberMe">
+                            <label class="form-check-label" for="rememberMe">Remember Me</label>
+                        </div>
+
+                        <!-- Error Message -->
+                        <p id="error-message" class="text-danger text-center" style="display: none;"></p>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-primary w-100">Login</button>
+                    </form>
+
+                    <!-- Link to Register -->
+                    <p class="mt-3 text-center">
+                        Don't have an account? <a href="/Account/Register" class="text-white">Register</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById("login-form").addEventListener("submit", async function (e) {
+        e.preventDefault(); // Prevent page reload
+
+        const formData = new FormData(this);
+        const errorMessage = document.getElementById("error-message");
+
+        try {
+            const response = await fetch("/Account/Login", {
+                method: "POST",
+                body: formData,
+                headers: { "Accept": "application/json" } // Ensure JSON response
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                window.location.href = result.redirectUrl; // Redirect on success
+            } else {
+                errorMessage.textContent = result.message; // Show error message
+                errorMessage.style.display = "block";
+            }
+        } catch (error) {
+            errorMessage.textContent = "An error occurred. Please try again.";
+            errorMessage.style.display = "block";
+        }
+    });
+</script>

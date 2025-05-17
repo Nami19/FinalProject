@@ -1,0 +1,49 @@
+﻿@model JwtAuthDemo.Models.Info.GovernmentInfo
+
+@{
+    ViewData["Title"] = "update";
+}
+
+<h1>update</h1>
+
+<h4>GovernmentInfo</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="update">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="SSS" class="control-label"></label>
+                <input asp-for="SSS" class="form-control" />
+                <span asp-validation-for="SSS" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhilHealth" class="control-label"></label>
+                <input asp-for="PhilHealth" class="form-control" />
+                <span asp-validation-for="PhilHealth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PagIbig" class="control-label"></label>
+                <input asp-for="PagIbig" class="form-control" />
+                <span asp-validation-for="PagIbig" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TinID" class="control-label"></label>
+                <input asp-for="TinID" class="form-control" />
+                <span asp-validation-for="TinID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

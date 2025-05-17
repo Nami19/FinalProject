@@ -1,0 +1,74 @@
+﻿@model JwtAuthDemo.Models.Info.Educationalbackground
+
+@{
+    ViewData["Title"] = "update";
+}
+
+<h1>update</h1>
+
+<h4>Educationalbackground</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="update">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="ElementarySchool" class="control-label"></label>
+                <input asp-for="ElementarySchool" class="form-control" />
+                <span asp-validation-for="ElementarySchool" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ElementaryYearAttended" class="control-label"></label>
+                <input asp-for="ElementaryYearAttended" class="form-control" />
+                <span asp-validation-for="ElementaryYearAttended" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HighSchool" class="control-label"></label>
+                <input asp-for="HighSchool" class="form-control" />
+                <span asp-validation-for="HighSchool" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HighSchoolYearAttended" class="control-label"></label>
+                <input asp-for="HighSchoolYearAttended" class="form-control" />
+                <span asp-validation-for="HighSchoolYearAttended" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CollegeSchool" class="control-label"></label>
+                <input asp-for="CollegeSchool" class="form-control" />
+                <span asp-validation-for="CollegeSchool" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CollegeYearAttended2" class="control-label"></label>
+                <input asp-for="CollegeYearAttended2" class="form-control" />
+                <span asp-validation-for="CollegeYearAttended2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DegreeReceived" class="control-label"></label>
+                <input asp-for="DegreeReceived" class="form-control" />
+                <span asp-validation-for="DegreeReceived" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SpecialSkills" class="control-label"></label>
+                <input asp-for="SpecialSkills" class="form-control" />
+                <span asp-validation-for="SpecialSkills" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Others" class="control-label"></label>
+                <input asp-for="Others" class="form-control" />
+                <span asp-validation-for="Others" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

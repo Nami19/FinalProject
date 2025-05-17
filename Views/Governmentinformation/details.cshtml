@@ -1,0 +1,42 @@
+﻿@model JwtAuthDemo.Models.Info.GovernmentInfo
+
+@{
+    ViewData["Title"] = "details";
+}
+
+<h1>details</h1>
+
+<div>
+    <h4>GovernmentInfo</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SSS)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SSS)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PhilHealth)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PhilHealth)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PagIbig)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PagIbig)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TinID)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TinID)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

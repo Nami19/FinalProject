@@ -1,0 +1,28 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    @if (!string.IsNullOrEmpty(ViewBag.Username))
+    {
+        <h1 class="display-4">Welcome, @ViewBag.Username!</h1>
+    }
+    else
+    {
+        <h1 class="display-4">Welcome!</h1>
+    }
+
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<style>
+    body {
+        background-color: black;
+        color: white;
+    }
+
+    h1, p {
+        margin-bottom: 20px;
+    }
+
+</style>

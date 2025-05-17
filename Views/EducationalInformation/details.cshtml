@@ -1,0 +1,72 @@
+﻿@model JwtAuthDemo.Models.Info.Educationalbackground
+
+@{
+    ViewData["Title"] = "details";
+}
+
+<h1>details</h1>
+
+<div>
+    <h4>Educationalbackground</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ElementarySchool)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ElementarySchool)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ElementaryYearAttended)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ElementaryYearAttended)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.HighSchool)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.HighSchool)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.HighSchoolYearAttended)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.HighSchoolYearAttended)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CollegeSchool)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CollegeSchool)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CollegeYearAttended2)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CollegeYearAttended2)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DegreeReceived)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DegreeReceived)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SpecialSkills)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SpecialSkills)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Others)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Others)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
